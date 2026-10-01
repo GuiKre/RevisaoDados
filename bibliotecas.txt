@@ -1,0 +1,2 @@
+pip install
+pandas, numpy, seaborn, scipy, scikit-learn

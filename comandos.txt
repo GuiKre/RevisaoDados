@@ -1,0 +1,116 @@
+PANDAS:
+
+# 1. Carregar dados de um arquivo CSV (o mais comum em provas)
+df = pd.read_csv("nome_do_arquivo.csv")
+
+# 2. Visualizar as primeiras e últimas linhas para entender os dados
+df.head()    # Mostra as 5 primeiras linhas
+df.tail()    # Mostra as 5 últimas linhas
+
+# 3. Informações gerais (tipos de dados e valores nulos)
+df.info()
+
+# 4. Resumo estatístico rápido (média, mínimo, máximo, quartis)
+df.describe()
+
+# 5. Filtrar dados (exemplo: pegar apenas linhas onde a idade é maior que 18)
+filtro = df[df['idade'] > 18]
+
+# 6. Lidar com valores nulos (dados faltando)
+df.dropna()  # Remove todas as linhas que têm algum dado vazio
+df.fillna(0) # Substitui dados vazios por 0 (ou outro valor, como a média)
+
+# 7. Agrupar dados (exemplo: média de salário por departamento)
+df.groupby('departamento')['salario'].mean()
+
+===========================================================================================
+
+NUMPY:
+
+# 1. Criar um array (lista numérica do numpy)
+meu_array = np.array([1, 2, 3, 4, 5])
+
+# 2. Criar arrays úteis rapidamente
+np.zeros(5)        # Cria um array com cinco zeros: [0., 0., 0., 0., 0.]
+np.arange(0, 10)   # Cria números de 0 a 9
+
+# 3. Operações matemáticas básicas (aplicadas a todos os itens de uma vez)
+media = np.mean(meu_array)
+soma = np.sum(meu_array)
+desvio_padrao = np.std(meu_array)
+
+# 4. Mudar a forma do array (exemplo: transformar 1 linha de 4 itens em 2x2)
+array_remodelado = np.array([1, 2, 3, 4]).reshape(2, 2)
+
+============================================================================================
+
+MATPLOT:
+
+# 1. Gráfico de linha simples
+plt.plot(df['coluna_x'], df['coluna_y'])
+
+# 2. Gráfico de dispersão (pontinhos)
+plt.scatter(df['coluna_x'], df['coluna_y'])
+
+# 3. Adicionar detalhes essenciais para ganhar nota na prova!
+plt.title("Título do Gráfico")
+plt.xlabel("Nome do Eixo X")
+plt.ylabel("Nome do Eixo Y")
+
+# 4. Mostrar o gráfico (sempre coloque isso no final)
+plt.show()
+
+============================================================================================
+
+SEABORN:
+
+# 1. Gráfico de dispersão com cores baseadas em uma categoria (hue)
+sns.scatterplot(data=df, x='peso', y='altura', hue='genero')
+
+# 2. Histograma (para ver a distribuição de uma variável)
+sns.histplot(data=df, x='idade', kde=True) # kde=True adiciona a linha de tendência
+
+# 3. Gráfico de caixa (Boxplot) - Excelente para achar Outliers (valores atípicos)
+sns.boxplot(data=df, x='categoria', y='valor')
+
+# 4. Mapa de calor de correlação (muito pedido em provas para ver o que afeta o quê)
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+plt.show()
+
+==============================================================================================
+
+SCIKIT-LEARN:
+
+# 2. Separar quem é característica (X) e quem é o alvo que queremos prever (y)
+X = df[['caracteristica_1', 'caracteristica_2']]
+y = df['alvo']
+
+# 3. Dividir os dados em treino (para o modelo aprender) e teste (para ver se aprendeu)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# 4. Criar o "robô" (instanciar o modelo)
+modelo = LinearRegression()
+
+# 5. Treinar o modelo com os dados de treino (ESTE É O PASSO MAIS IMPORTANTE)
+modelo.fit(X_train, y_train)
+
+# 6. Fazer previsões usando os dados de teste que ele nunca viu
+previsoes = modelo.predict(X_test)
+
+# 7. Avaliar se ele foi bem (usando métricas adequadas ao problema)
+# Se for regressão (prever números):
+erro = mean_squared_error(y_test, previsoes)
+# Se for classificação (prever categorias), importar e usar:
+# acuracia = accuracy_score(y_test, previsoes)
+
+===================================================================================================
+
+SCIPY:
+
+# 1. Correlação de Pearson (Mede a força da relação linear entre duas variáveis)
+correlacao, p_valor = stats.pearsonr(df['coluna1'], df['coluna2'])
+
+# 2. Teste T (Compara as médias de dois grupos para ver se são diferentes estatisticamente)
+estatistica_t, p_valor = stats.ttest_ind(grupo_a, grupo_b)
+
+# Dica: Se o p_valor for menor que 0.05, a relação/diferença é estatisticamente significativa!
